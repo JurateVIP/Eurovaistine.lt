@@ -58,13 +58,15 @@ namespace Eurovaistine.lt
             topMenu.CheckSearchBar("Ibuprom");
             string itemPriceAndName = nav.GetItemPriceAndName(1);
             productCard.GoInTheProductCard(1);
-            string itemPriceAndNameAtInlineCard = productCard.ItemPriceAndNameAtInlineCard();
-            Assert.AreEqual(itemPriceAndNameAtInlineCard, itemPriceAndName, "Price or name doesn't match with selected item info.");
+            string selectedItemPriceAndName = productCard.SelectedItemPriceAndName();
+            string itemPriceAndNameAtTheBottom = productCard.ItemPriceAndNameAtTheBottom();
+            Assert.AreEqual(selectedItemPriceAndName, itemPriceAndName, "Price or name doesn't match with selected item info.");
+            Assert.AreEqual(itemPriceAndNameAtTheBottom, itemPriceAndName, "Price or name doesn't match with selected item info.");
         }
         [TearDown]
         public static void CloseWindow()
         {
-            //driver.Quit();
+            driver.Quit();
         }
     }
 }
