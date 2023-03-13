@@ -55,18 +55,18 @@ namespace Eurovaistine.lt
         [Test]
         public void ProductCard()
         {
-            topMenu.CheckSearchBar("Ibuprom");
+            topMenu.WriteInSearchBar("Ibuprom");
             string itemPriceAndName = nav.GetItemPriceAndName(1);
             productCard.GoInTheProductCard(1);
-            string selectedItemPriceAndName = productCard.SelectedItemPriceAndName();
-            string itemPriceAndNameAtTheBottom = productCard.ItemPriceAndNameAtTheBottom();
-            Assert.AreEqual(selectedItemPriceAndName, itemPriceAndName, "Price or name doesn't match with selected item info.");
-            Assert.AreEqual(itemPriceAndNameAtTheBottom, itemPriceAndName, "Price or name doesn't match with selected item info.");
+            string itemPriceAndNameAtTheTopOfTheCard = productCard.itemPriceAndNameAtTheTopOfTheCard();
+            string itemPriceAndNameAtTheBottomOfTheCard = productCard.itemPriceAndNameAtTheBottomOfTheCard();
+            Assert.AreEqual(itemPriceAndNameAtTheTopOfTheCard, itemPriceAndName, "Price or name doesn't match with selected item info.");
+            Assert.AreEqual(itemPriceAndNameAtTheBottomOfTheCard, itemPriceAndName, "Price or name doesn't match with selected item info.");
         }
         [TearDown]
         public static void CloseWindow()
         {
-            driver.Quit();
+            //driver.Quit();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Eurovaistine.lt.POM
             js.ExecuteScript("arguments[0].scrollIntoView(true);", element);
             element.Click();
         }
-        public void CheckSearchBar(string elementName)
+        public void WriteInSearchBar(string elementName)
         {
             By searchBar = By.XPath("(//input[@type = 'search'])[2]");
             driver.FindElement(searchBar).SendKeys(elementName + Keys.Enter);

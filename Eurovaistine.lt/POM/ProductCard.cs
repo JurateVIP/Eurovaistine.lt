@@ -21,14 +21,14 @@ namespace Eurovaistine.lt.POM
             js.ExecuteScript("arguments[0].scrollIntoView(true);", element);
             element.Click();
         }
-        public string SelectedItemPriceAndName()
+        public string itemPriceAndNameAtTheTopOfTheCard()
         {
             By itemprice = By.XPath("(//div[@class='product--price'])[1]");
             By itemName = By.XPath("//h1[@class='product-title']");
 
             return driver.FindElement(itemprice).Text + driver.FindElement(itemName).Text;
         }
-        public string ItemPriceAndNameAtTheBottom()
+        public string itemPriceAndNameAtTheBottomOfTheCard()
         {
             By itemprice = By.XPath("(//div[@class='product--price'])[2]");
             By itemName = By.XPath("//div[contains(@class, 'product-title')]");
