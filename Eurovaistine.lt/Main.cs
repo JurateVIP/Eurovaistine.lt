@@ -19,6 +19,7 @@ namespace Eurovaistine.lt
         Cart cart;
         GeneralMethods generalMethods;
         ProductCard productCard;
+        ProductsPage productsPage;
 
         [SetUp]
         public void SETUP()
@@ -32,6 +33,7 @@ namespace Eurovaistine.lt
             nav = new Navigation(driver);
             cart = new Cart(driver);
             productCard = new ProductCard(driver);
+            productsPage = new ProductsPage(driver);
 
             driver.Manage().Window.Maximize();
             driver.Url = "https://www.eurovaistine.lt/";
@@ -53,15 +55,28 @@ namespace Eurovaistine.lt
             Assert.AreEqual(itemPriceAndNameInTheCart, itemPriceAndName, "Price or name doesn't match with added item info.");
         }
         [Test]
-        public void ProductCard()
+        public void CheckProductCardVisibility()
         {
             topMenu.WriteInSearchBar("Ibuprom");
             string itemPriceAndName = nav.GetItemPriceAndName(1);
             productCard.GoInTheProductCard(1);
+            topMenu.CheckTopMeniuLayout();
             string itemPriceAndNameAtTheTopOfTheCard = productCard.itemPriceAndNameAtTheTopOfTheCard();
             string itemPriceAndNameAtTheBottomOfTheCard = productCard.itemPriceAndNameAtTheBottomOfTheCard();
-            Assert.AreEqual(itemPriceAndNameAtTheTopOfTheCard, itemPriceAndName, "Price or name doesn't match with selected item info.");
-            Assert.AreEqual(itemPriceAndNameAtTheBottomOfTheCard, itemPriceAndName, "Price or name doesn't match with selected item info.");
+            Assert.AreEqual(itemPriceAndNameAtTheTopOfTheCard, itemPriceAndName, "Price or name on the top doesn't match with selected item info.");
+            Assert.AreEqual(itemPriceAndNameAtTheBottomOfTheCard, itemPriceAndName, "Price or name on the bottom doesn't match with selected item info.");
+            productCard.CheckBreadscrumbsCount();
+            productCard.CheckWishlistButton();
+            productCard.CheckProductInputButton();
+            productCard.CheckProductInformationTab();
+        }
+
+        [Test]
+        public void CheckProductListSorting()
+        {
+            nav.NavigateFromMainPage("Vaistai nereceptiniai", "Gripui");
+            productsPage.CheckProductsSortingByPrice();
+            productsPage.CheckProductsSortingByAlphabet();
         }
         [TearDown]
         public static void CloseWindow()

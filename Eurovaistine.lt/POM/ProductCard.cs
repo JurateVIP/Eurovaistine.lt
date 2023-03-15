@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,12 @@ namespace Eurovaistine.lt.POM
     internal class ProductCard
     {
         IWebDriver driver;
+        GeneralMethods generalMethods;
+
         public ProductCard(IWebDriver driver)
         {
             this.driver = driver;
+            generalMethods = new GeneralMethods(driver);
         }
         public void GoInTheProductCard(int itemNumber)
         {
@@ -34,6 +38,24 @@ namespace Eurovaistine.lt.POM
             By itemName = By.XPath("//div[contains(@class, 'product-title')]");
 
             return driver.FindElement(itemprice).Text + driver.FindElement(itemName).Text;
+        }
+        public void CheckBreadscrumbsCount()
+        {
+            By breadScrumbs = By.XPath("//li[@itemprop = 'itemListElement']");
+            int breadScrumbsCount = driver.FindElements(breadScrumbs).Count();
+            Assert.AreEqual(4, breadScrumbsCount, "Expected 4, but got - " + breadScrumbsCount);
+        }
+        public void CheckWishlistButton()
+        {
+            generalMethods.FindElementByXpath("//div[@class = 'wishlist--product-page']");
+        }
+        public void CheckProductInputButton()
+        {
+            generalMethods.FindElementByXpath("(//div[@class='product-input'])[1]");
+        }
+        public void CheckProductInformationTab()
+        {
+            generalMethods.FindElementByXpath("//div[@class ='product-tabs']");
         }
     }
 }

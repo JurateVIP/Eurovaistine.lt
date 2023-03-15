@@ -14,7 +14,7 @@ namespace Eurovaistine.lt
         {
             this.driver = driver;
         }
-        public void ClickElementBy(string xpath)
+        public void ClickElement(string xpath)
         {
             IWebElement el = driver.FindElement(By.XPath(xpath));
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
@@ -25,6 +25,16 @@ namespace Eurovaistine.lt
         {
             By searchField = By.XPath(xpath);
             driver.FindElement(searchField).SendKeys(text);
+        }
+        public void FindElementById(string id)
+        {
+            By elementById = By.XPath(id);
+            driver.FindElement(elementById);
+        }
+        public void FindElementByXpath(string xpath)
+        {
+            By elementByXpath = By.XPath(xpath);
+            driver.FindElement(elementByXpath);
         }
     }
 }
