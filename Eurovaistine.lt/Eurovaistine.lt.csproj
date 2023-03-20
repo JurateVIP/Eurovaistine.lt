@@ -66,6 +66,7 @@
     <Compile Include="POM\Navigation.cs" />
     <Compile Include="POM\ProductCard.cs" />
     <Compile Include="POM\ProductsPage.cs" />
+    <Compile Include="POM\Registration_Login.cs" />
     <Compile Include="POM\TopMenu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

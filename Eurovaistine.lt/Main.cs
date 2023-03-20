@@ -20,6 +20,7 @@ namespace Eurovaistine.lt
         GeneralMethods generalMethods;
         ProductCard productCard;
         ProductsPage productsPage;
+        Registration_Login registration_login;
 
         [SetUp]
         public void SETUP()
@@ -34,10 +35,11 @@ namespace Eurovaistine.lt
             cart = new Cart(driver);
             productCard = new ProductCard(driver);
             productsPage = new ProductsPage(driver);
+            registration_login = new Registration_Login(driver);
 
             driver.Manage().Window.Maximize();
             driver.Url = "https://www.eurovaistine.lt/";
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
             driver.FindElement(By.Id("onetrust-accept-btn-handler")).Click();
         }
 
@@ -78,6 +80,27 @@ namespace Eurovaistine.lt
             productsPage.CheckProductsSortingByPrice();
             productsPage.CheckProductsSortingByAlphabet();
         }
+
+        [Test]
+        public void CheckChatBox()
+        {
+            productsPage.CheckChatBoxVisability();
+        }
+
+        [Test]
+        public void CheckRegistration()
+        {
+            string emailForRegistration = registration_login.FillRegistrationForm();
+            registration_login.CheckOrAutomaticallyLogInAfterRegistration(emailForRegistration);
+        }
+
+        [Test]
+        public void CheckLogIn()
+        {
+            registration_login.FillLogInForm();
+            registration_login.CheckLogIn();
+        }
+
         [TearDown]
         public static void CloseWindow()
         {

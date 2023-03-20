@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Eurovaistine.lt.POM
@@ -21,8 +22,8 @@ namespace Eurovaistine.lt.POM
         }
         public void CheckProductsSortingByPrice()
         {
-            generalMethods.ClickElement("(//select[@id='sort-box'])[2]");
-            generalMethods.ClickElement("(//option[@value='price'])[2]");
+            generalMethods.ClickElementByXpath("(//select[@id='sort-box'])[2]");
+            generalMethods.ClickElementByXpath("(//option[@value='price'])[2]");
             By prices = By.XPath("//div[@class='product-card--price']");
 
             List<double> allPrices = new List<double>();
@@ -42,8 +43,8 @@ namespace Eurovaistine.lt.POM
         }
         public void CheckProductsSortingByAlphabet()
         {
-            generalMethods.ClickElement("(//select[@id='sort-box'])[2]");
-            generalMethods.ClickElement("(//option[@value='title'])[2]");
+            generalMethods.ClickElementByXpath("(//select[@id='sort-box'])[2]");
+            generalMethods.ClickElementByXpath("(//option[@value='title'])[2]");
             By productNames = By.XPath("//div[@class='product-card--title']");
 
             List<char> allproductNames = new List<char>();
@@ -61,6 +62,15 @@ namespace Eurovaistine.lt.POM
                     Assert.Fail("Products not sorted by alphabet.");
                 }
             }
+        }
+
+        public void CheckChatBoxVisability()
+        {
+            generalMethods.ClickElementByXpath("//div[@id='chat-widget-container']");
+            Thread.Sleep(3000);
+            driver.SwitchTo().Frame("chat-widget");
+            //generalMethods.FindElementByXpath("//div[@id='chat-widget-container']/iframe[@id='chat-widget']");
+            generalMethods.FindElementByXpath("//div[@class='lc-gj6ugv eztkvdh2']");
         }
     }
 }

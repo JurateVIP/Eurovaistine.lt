@@ -14,17 +14,34 @@ namespace Eurovaistine.lt
         {
             this.driver = driver;
         }
-        public void ClickElement(string xpath)
+        public void SimpleClick(string xpath)
+        {
+            By button = By.XPath(xpath);
+            driver.FindElement(button).Click();
+        }
+        public void ClickElementByXpath(string xpath)
         {
             IWebElement el = driver.FindElement(By.XPath(xpath));
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("arguments[0].scrollIntoView(true);", el);
             el.Click();
         }
-        public void EnterTextBy(string xpath, string text)
+        public void ClickElementByID(string id)
         {
-            By searchField = By.XPath(xpath);
-            driver.FindElement(searchField).SendKeys(text);
+            IWebElement el = driver.FindElement(By.Id(id));
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("arguments[0].scrollIntoView(true);", el);
+            el.Click();
+        }
+        public void EnterTextByXpath(string xpath, string text)
+        {
+            By textField = By.XPath(xpath);
+            driver.FindElement(textField).SendKeys(text);
+        }
+        public void EnterTextById(string id, string text)
+        {
+            By textField = By.Id(id);
+            driver.FindElement(textField).SendKeys(text);
         }
         public void FindElementById(string id)
         {
