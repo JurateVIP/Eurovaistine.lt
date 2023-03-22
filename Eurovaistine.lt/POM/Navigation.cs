@@ -6,38 +6,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using OpenQA.Selenium.Support.UI;
 
 namespace Eurovaistine.lt.POM
 {
     internal class Navigation
     {
         IWebDriver driver;
+        GeneralMethods generalMethods;
+
         public Navigation(IWebDriver driver)
         {
             this.driver = driver;
+            generalMethods = new GeneralMethods(driver);
         }
         public void NavigateFromMainPage(string parent, string child)
         {
-            By ParentCategory = By.XPath("//a[contains(text(),'" + parent + "')]");
+            IWebElement MainCategory = generalMethods.FindElementByXpath("//a[contains(text(),'" + parent + "')]");
             Actions action = new Actions(driver);
-            IWebElement ParentCatObj = driver.FindElement(ParentCategory);
-            action.MoveToElement(ParentCatObj).Perform();
-            By innerCat = By.XPath("//span[contains(text(),'" + child + "')]//parent::a");
-            driver.FindElement(innerCat).Click();
+            action.MoveToElement(MainCategory).Perform();
+            generalMethods.ClickElementByXpath("//span[contains(text(),'" + child + "')]//parent::a");
         }
         public void AddItemsToTheCart(int itemNumber)
         {
-            IWebElement element = driver.FindElement(By.XPath("(//div[@class='product-card']//button[@type='submit'])[" + itemNumber + "]"));
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("arguments[0].scrollIntoView(true);", element);
-            element.Click();
+            generalMethods.ScrollAndClickElementByXpath("(//div[@class='product-card']//button[@type='submit'])[" + itemNumber + "]");
         }
         public string GetItemPriceAndName(int itemNumber)
         {
-            By itemprice = By.XPath("(//div[@class='product-card--price'])[" + itemNumber + "]");
-            By itemName = By.XPath("(//div[@class='product-card--title'])[" + itemNumber + "]");
-
-            return driver.FindElement(itemprice).Text + driver.FindElement(itemName).Text;
+            IWebElement itemprice = generalMethods.FindElementByXpath("(//div[@class='product-card--price'])[" + itemNumber + "]");
+            IWebElement itemName = generalMethods.FindElementByXpath("(//div[@class='product-card--title'])[" + itemNumber + "]");
+            return itemprice.Text + itemName.Text;
         }
     }
 }

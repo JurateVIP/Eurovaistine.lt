@@ -20,29 +20,24 @@ namespace Eurovaistine.lt.POM
         }
         public void GoInTheProductCard(int itemNumber)
         {
-            IWebElement element = driver.FindElement(By.XPath("(//a[@class='product-card--link'])["+ itemNumber + "]"));
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("arguments[0].scrollIntoView(true);", element);
-            element.Click();
+            generalMethods.ScrollAndClickElementByXpath("(//a[@class='product-card--link'])[" + itemNumber + "]");
         }
         public string itemPriceAndNameAtTheTopOfTheCard()
         {
-            By itemprice = By.XPath("(//div[@class='product--price'])[1]");
-            By itemName = By.XPath("//h1[@class='product-title']");
-
-            return driver.FindElement(itemprice).Text + driver.FindElement(itemName).Text;
+            IWebElement itemprice = generalMethods.FindElementByXpath("(//div[@class='product--price'])[1]");
+            IWebElement itemName = generalMethods.FindElementByXpath("//h1[@class='product-title']");
+            return itemprice.Text + itemName.Text;
         }
         public string itemPriceAndNameAtTheBottomOfTheCard()
         {
-            By itemprice = By.XPath("(//div[@class='product--price'])[2]");
-            By itemName = By.XPath("//div[contains(@class, 'product-title')]");
-
-            return driver.FindElement(itemprice).Text + driver.FindElement(itemName).Text;
+            IWebElement itemprice = generalMethods.FindElementByXpath("(//div[@class='product--price'])[2]");
+            IWebElement itemName = generalMethods.FindElementByXpath("//div[contains(@class, 'product-title')]");
+            return itemprice.Text + itemName.Text;
         }
         public void CheckBreadscrumbsCount()
         {
-            By breadScrumbs = By.XPath("//li[@itemprop = 'itemListElement']");
-            int breadScrumbsCount = driver.FindElements(breadScrumbs).Count();
+            IReadOnlyCollection<IWebElement> breadScrumbs = generalMethods.FindAllElementsByXpath("//li[@itemprop = 'itemListElement']");
+            int breadScrumbsCount = breadScrumbs.Count();
             Assert.AreEqual(4, breadScrumbsCount, "Expected 4, but got - " + breadScrumbsCount);
         }
         public void CheckWishlistButton()

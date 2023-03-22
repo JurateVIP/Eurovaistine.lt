@@ -1,6 +1,9 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,48 +13,60 @@ namespace Eurovaistine.lt
     internal class GeneralMethods
     {
         IWebDriver driver;
+        DefaultWait<IWebDriver> wait;
+
         public GeneralMethods(IWebDriver driver)
         {
             this.driver = driver;
-        }
-        public void SimpleClick(string xpath)
-        {
-            By button = By.XPath(xpath);
-            driver.FindElement(button).Click();
+            wait = new DefaultWait<IWebDriver>(driver);
+            wait.Timeout = TimeSpan.FromSeconds(10);
+            wait.PollingInterval = TimeSpan.FromMilliseconds(250);
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
         }
         public void ClickElementByXpath(string xpath)
         {
-            IWebElement el = driver.FindElement(By.XPath(xpath));
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("arguments[0].scrollIntoView(true);", el);
-            el.Click();
+            IWebElement element = wait.Until(x => x.FindElement(By.XPath(xpath)));
+            element.Click();
         }
-        public void ClickElementByID(string id)
+        public void ScrollAndClickElementByXpath(string xpath)
         {
-            IWebElement el = driver.FindElement(By.Id(id));
+            IWebElement element = wait.Until(x => x.FindElement(By.XPath(xpath)));
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("arguments[0].scrollIntoView(true);", el);
-            el.Click();
+            js.ExecuteScript("arguments[0].scrollIntoView(true);", element);
+            element.Click();
+        }
+        public void ScrollAndClickElementByID(string id)
+        {
+            IWebElement element = wait.Until(x => x.FindElement(By.Id(id)));
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("arguments[0].scrollIntoView(true);", element);
+            element.Click();
         }
         public void EnterTextByXpath(string xpath, string text)
         {
-            By textField = By.XPath(xpath);
-            driver.FindElement(textField).SendKeys(text);
+            IWebElement element = wait.Until(x => x.FindElement(By.XPath(xpath)));
+            element.SendKeys(text);
         }
         public void EnterTextById(string id, string text)
         {
-            By textField = By.Id(id);
-            driver.FindElement(textField).SendKeys(text);
+            IWebElement element = wait.Until(x => x.FindElement(By.Id(id)));
+            element.SendKeys(text);
         }
-        public void FindElementById(string id)
+        public IWebElement FindElementById(string id)
         {
-            By elementById = By.XPath(id);
-            driver.FindElement(elementById);
+            IWebElement element = wait.Until(x => x.FindElement(By.Id(id)));
+            return element;
         }
-        public void FindElementByXpath(string xpath)
+        public IWebElement FindElementByXpath(string xpath)
         {
-            By elementByXpath = By.XPath(xpath);
-            driver.FindElement(elementByXpath);
+            IWebElement element = wait.Until(x => x.FindElement(By.XPath(xpath)));
+            return element;
+
+        }
+        public IReadOnlyCollection<IWebElement> FindAllElementsByXpath(string xpath)
+        {
+            IReadOnlyCollection <IWebElement> element = wait.Until(x => x.FindElements(By.XPath(xpath)));
+            return element;
         }
     }
 }

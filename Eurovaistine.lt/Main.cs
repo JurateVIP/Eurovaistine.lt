@@ -39,8 +39,9 @@ namespace Eurovaistine.lt
 
             driver.Manage().Window.Maximize();
             driver.Url = "https://www.eurovaistine.lt/";
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
-            driver.FindElement(By.Id("onetrust-accept-btn-handler")).Click();
+            generalMethods.ScrollAndClickElementByID("onetrust-accept-btn-handler");
+            //driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            //driver.FindElement(By.Id("onetrust-accept-btn-handler")).Click();
         }
 
         [Test]
@@ -49,9 +50,9 @@ namespace Eurovaistine.lt
             topMenu.CheckTopMeniuLayout();
             nav.NavigateFromMainPage("Vaistai nereceptiniai", "Gripui");
             topMenu.CheckTopMeniuLayout();
+            Thread.Sleep(3000);
             nav.AddItemsToTheCart(2);
             string itemPriceAndName = nav.GetItemPriceAndName(2);
-            Thread.Sleep(3000);
             topMenu.GoInTheCart();
             string itemPriceAndNameInTheCart = cart.GetItemPriceandNameInTheCart();
             Assert.AreEqual(itemPriceAndNameInTheCart, itemPriceAndName, "Price or name doesn't match with added item info.");

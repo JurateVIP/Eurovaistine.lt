@@ -22,12 +22,12 @@ namespace Eurovaistine.lt.POM
         }
         public void CheckProductsSortingByPrice()
         {
-            generalMethods.ClickElementByXpath("(//select[@id='sort-box'])[2]");
-            generalMethods.ClickElementByXpath("(//option[@value='price'])[2]");
-            By prices = By.XPath("//div[@class='product-card--price']");
+            generalMethods.ScrollAndClickElementByXpath("(//select[@id='sort-box'])[2]");
+            generalMethods.ScrollAndClickElementByXpath("(//option[@value='price'])[2]");
+            IReadOnlyCollection<IWebElement> prices = generalMethods.FindAllElementsByXpath("//div[@class='product-card--price']");
 
             List<double> allPrices = new List<double>();
-            foreach (IWebElement el in driver.FindElements(prices))
+            foreach (IWebElement el in prices)
             {
                 string onePrice = el.Text.Substring(0, el.Text.Length - 2);
                 double otherPrices = double.Parse(onePrice);
@@ -43,12 +43,12 @@ namespace Eurovaistine.lt.POM
         }
         public void CheckProductsSortingByAlphabet()
         {
-            generalMethods.ClickElementByXpath("(//select[@id='sort-box'])[2]");
-            generalMethods.ClickElementByXpath("(//option[@value='title'])[2]");
-            By productNames = By.XPath("//div[@class='product-card--title']");
+            generalMethods.ScrollAndClickElementByXpath("(//select[@id='sort-box'])[2]");
+            generalMethods.ScrollAndClickElementByXpath("(//option[@value='title'])[2]");
+            IReadOnlyCollection<IWebElement> productNames = generalMethods.FindAllElementsByXpath("//div[@class='product-card--title']");
 
             List<char> allproductNames = new List<char>();
-            foreach (IWebElement name in driver.FindElements(productNames))
+            foreach (IWebElement name in productNames)
             {
                 string allNames = name.Text.Substring(0, 1);
                 char firstletter = char.Parse(allNames.ToString());
@@ -66,7 +66,7 @@ namespace Eurovaistine.lt.POM
 
         public void CheckChatBoxVisability()
         {
-            generalMethods.ClickElementByXpath("//div[@id='chat-widget-container']");
+            generalMethods.ScrollAndClickElementByXpath("//div[@id='chat-widget-container']");
             Thread.Sleep(3000);
             driver.SwitchTo().Frame("chat-widget");
             //generalMethods.FindElementByXpath("//div[@id='chat-widget-container']/iframe[@id='chat-widget']");
