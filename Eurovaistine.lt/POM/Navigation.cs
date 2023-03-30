@@ -37,5 +37,16 @@ namespace Eurovaistine.lt.POM
             IWebElement itemName = generalMethods.FindElementByXpath("(//div[@class='product-card--title'])[" + itemNumber + "]");
             return itemprice.Text + itemName.Text;
         }
+        public void CloseAd()
+        {
+            try
+            {
+                IWebElement closeAd = generalMethods.Explisitwait("//button[contains(@class,'close-action')]");
+                closeAd.Click();
+            }
+            catch (Exception e){
+                Console.WriteLine(e);
+            }
+        }
     }
 }

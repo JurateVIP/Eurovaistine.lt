@@ -39,7 +39,9 @@ namespace Eurovaistine.lt
 
             driver.Manage().Window.Maximize();
             driver.Url = "https://www.eurovaistine.lt/";
-            generalMethods.ScrollAndClickElementByID("onetrust-accept-btn-handler");
+            generalMethods.FindElementById("onetrust-accept-btn-handler").Click();
+            nav.CloseAd();
+            //generalMethods.ScrollAndClickElementByID("onetrust-accept-btn-handler");
             //driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             //driver.FindElement(By.Id("onetrust-accept-btn-handler")).Click();
         }

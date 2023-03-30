@@ -31,7 +31,15 @@ namespace Eurovaistine.lt.POM
         }
         public void GoInTheCart()
         {
-            generalMethods.ScrollAndClickElementByXpath("//div[@class='headerCart-price']");
+            try 
+            {
+               generalMethods.ClickElementByXpath("//a[@class='popup-btn add-to-cart-popup']");
+            } 
+            catch(Exception e)
+            {
+                generalMethods.ScrollAndClickElementByXpath("//span[@class='svgIcon']");
+            }
+
         }
         public void WriteInSearchBar(string elementName)
         {

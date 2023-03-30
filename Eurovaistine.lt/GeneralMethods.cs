@@ -68,5 +68,12 @@ namespace Eurovaistine.lt
             IReadOnlyCollection <IWebElement> element = wait.Until(x => x.FindElements(By.XPath(xpath)));
             return element;
         }
+        public IWebElement Explisitwait(string xpath)
+        {
+            WebDriverWait wait = new WebDriverWait(driver, new TimeSpan(0,0,0,30));
+            wait.Until(x => x.FindElement(By.XPath(xpath)).Displayed);
+            return driver.FindElement(By.XPath(xpath));
+
+        }
     }
 }
