@@ -17,7 +17,7 @@ namespace Eurovaistine.lt
         TopMenu topMenu;
         Navigation nav;
         Cart cart;
-        GeneralMethods generalMethods;
+        static GeneralMethods generalMethods;
         ProductCard productCard;
         ProductsPage productsPage;
         Registration_Login registration_login;
@@ -41,11 +41,7 @@ namespace Eurovaistine.lt
             driver.Url = "https://www.eurovaistine.lt/";
             generalMethods.FindElementById("onetrust-accept-btn-handler").Click();
             nav.CloseAd();
-            //generalMethods.ScrollAndClickElementByID("onetrust-accept-btn-handler");
-            //driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            //driver.FindElement(By.Id("onetrust-accept-btn-handler")).Click();
         }
-
         [Test]
         public void AddProductToTheCart()
         {
@@ -102,12 +98,15 @@ namespace Eurovaistine.lt
         {
             registration_login.FillLogInForm();
             registration_login.CheckLogIn();
+            Console.WriteLine();
         }
 
         [TearDown]
         public static void CloseWindow()
         {
-            //driver.Quit();
+            generalMethods.TakeScreanShot();
+            driver.Quit();
         }
     }
+
 }

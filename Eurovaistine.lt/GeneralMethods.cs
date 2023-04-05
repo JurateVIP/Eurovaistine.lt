@@ -1,8 +1,10 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.Extensions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -73,7 +75,12 @@ namespace Eurovaistine.lt
             WebDriverWait wait = new WebDriverWait(driver, new TimeSpan(0,0,0,30));
             wait.Until(x => x.FindElement(By.XPath(xpath)).Displayed);
             return driver.FindElement(By.XPath(xpath));
-
+        }
+        public void TakeScreanShot()
+        {
+            Screenshot ss = driver.TakeScreenshot();            
+            string screenshot = "screenshot" + DateTime.Now.ToString("yyyy-MM-dd-HH_mm_ss") + ".jpg";
+            ss.SaveAsFile("C:\\Users\\Jurate\\source\\repos\\Eurovaistine.lt\\Eurovaistine.lt\\" + screenshot);
         }
     }
 }
