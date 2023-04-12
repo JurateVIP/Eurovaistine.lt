@@ -69,8 +69,10 @@ namespace Eurovaistine.lt.POM
             generalMethods.ScrollAndClickElementByXpath("//div[@id='chat-widget-container']");
             Thread.Sleep(3000);
             driver.SwitchTo().Frame("chat-widget");
-            //generalMethods.FindElementByXpath("//div[@id='chat-widget-container']/iframe[@id='chat-widget']");
+            //chatbox inside visability
             generalMethods.FindElementByXpath("//div[@class='lc-gj6ugv eztkvdh2']");
+            //chatbox write message box
+            generalMethods.FindElementByXpath("//div[@class='lc-fy23g7 ex4ls1q2']");
         }
     }
 }
