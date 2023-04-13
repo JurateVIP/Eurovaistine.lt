@@ -44,11 +44,6 @@ namespace Eurovaistine.lt
             js.ExecuteScript("arguments[0].scrollIntoView(true);", element);
             element.Click();
         }
-        public void EnterTextByXpath(string xpath, string text)
-        {
-            IWebElement element = wait.Until(x => x.FindElement(By.XPath(xpath)));
-            element.SendKeys(text);
-        }
         public void EnterTextById(string id, string text)
         {
             IWebElement element = wait.Until(x => x.FindElement(By.Id(id)));

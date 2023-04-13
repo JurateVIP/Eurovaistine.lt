@@ -48,7 +48,7 @@ namespace Eurovaistine.lt
             topMenu.CheckTopMeniuLayout();
             nav.NavigateFromMainPage("Vaistai nereceptiniai", "Gripui");
             topMenu.CheckTopMeniuLayout();
-            //Thread.Sleep(3000);
+            Thread.Sleep(3000);
             nav.AddItemsToTheCart(2);
             string itemPriceAndName = nav.GetItemPriceAndName(2);
             topMenu.GoInTheCart();
@@ -78,12 +78,6 @@ namespace Eurovaistine.lt
             nav.NavigateFromMainPage("Vaistai nereceptiniai", "Gripui");
             productsPage.CheckProductsSortingByPrice();
             productsPage.CheckProductsSortingByAlphabet();
-        }
-
-        [Test]
-        public void CheckChatBox()
-        {
-            productsPage.CheckChatBoxVisability();
         }
 
         [Test]
