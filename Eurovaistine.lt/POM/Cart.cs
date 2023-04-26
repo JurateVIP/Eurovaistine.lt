@@ -9,19 +9,17 @@ namespace Eurovaistine.lt.POM
 {
     internal class Cart
     {
-        IWebDriver driver;
         GeneralMethods generalMethods;
 
         public Cart(IWebDriver driver)
         {
-            this.driver = driver;
             generalMethods = new GeneralMethods(driver);
         }
-        public string GetItemPriceandNameInTheCart()
+        public string GetItemPriceAndNameInTheCart()
         {
-            IWebElement itemprice = generalMethods.FindElementByXpath("//div[@class='cartUnitPrice']");
+            IWebElement itemPrice = generalMethods.FindElementByXpath("//div[@class='cartUnitPrice']");
             IWebElement itemNameInTheCart = generalMethods.FindElementByXpath("//div[@class='productName']");
-            return itemprice.Text + itemNameInTheCart.Text;
+            return itemPrice.Text + itemNameInTheCart.Text;
         }
     }
 }

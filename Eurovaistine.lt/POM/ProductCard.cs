@@ -1,38 +1,33 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Eurovaistine.lt.POM
 {
     internal class ProductCard
     {
-        IWebDriver driver;
         GeneralMethods generalMethods;
 
         public ProductCard(IWebDriver driver)
         {
-            this.driver = driver;
             generalMethods = new GeneralMethods(driver);
         }
         public void GoInTheProductCard(int itemNumber)
         {
             generalMethods.ScrollAndClickElementByXpath("(//a[@class='productCard'])[" + itemNumber + "]");
         }
-        public string itemPriceAndNameAtTheTopOfTheCard()
+        public string ItemPriceAndNameAtTheTopOfTheCard()
         {
-            IWebElement itemprice = generalMethods.FindElementByXpath("(//div[@class='product--price'])[1]");
+            IWebElement itemPrice = generalMethods.FindElementByXpath("(//div[@class='product--price'])[1]");
             IWebElement itemName = generalMethods.FindElementByXpath("//h1[@class='product-title']");
-            return itemprice.Text + itemName.Text;
+            return itemPrice.Text + itemName.Text;
         }
-        public string itemPriceAndNameAtTheBottomOfTheCard()
+        public string ItemPriceAndNameAtTheBottomOfTheCard()
         {
-            IWebElement itemprice = generalMethods.FindElementByXpath("(//div[@class='product--price'])[2]");
+            IWebElement itemPrice = generalMethods.FindElementByXpath("(//div[@class='product--price'])[2]");
             IWebElement itemName = generalMethods.FindElementByXpath("//div[contains(@class, 'product-title')]");
-            return itemprice.Text + itemName.Text;
+            return itemPrice.Text + itemName.Text;
         }
         public void CheckBreadscrumbsCount()
         {

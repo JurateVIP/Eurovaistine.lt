@@ -36,17 +36,17 @@ namespace Eurovaistine.lt.POM
             generalMethods.ScrollAndClickElementByXpath("(//a[@class='productCard'])["+ itiem + "]");
             generalMethods.ClickElementByXpath("(//button[@data-handler='addToCart'])[1]");
         }
-        public string GetItemPriceAndName()
+        public string GetItemPriceAndName(int itiem)
         {
-            IWebElement itemprice = generalMethods.FindElementByXpath("(//div[@class='product--price'])[1]");
-            IWebElement itemName = generalMethods.FindElementByXpath("//h1[@class='product-title']");
-            return itemprice.Text + itemName.Text;
+            IWebElement itemPrice = generalMethods.FindElementByXpath("(//div[contains(@class,'productPrice')])["+ itiem +"]");
+            IWebElement itemName = generalMethods.FindElementByXpath("(//div[@class='title'])["+ itiem +"]");
+            return itemPrice.Text + itemName.Text;
         }
         public void CloseAd()
         {
             try
             {
-                IWebElement closeSecondAd = generalMethods.Explisitwait("//button[contains(@class,'PopupCloseButton')]");
+                IWebElement closeSecondAd = generalMethods.ExplisitWait("//button[contains(@class,'PopupCloseButton')]");
                 closeSecondAd.Click();
             }
             catch (Exception e){

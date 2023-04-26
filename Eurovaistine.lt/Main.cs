@@ -2,12 +2,7 @@
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Eurovaistine.lt
 {
@@ -49,21 +44,21 @@ namespace Eurovaistine.lt
             nav.NavigateFromMainPage("Vaistai nereceptiniai", "Gripui");
             topMenu.CheckTopMeniuLayout();
             nav.AddItemsToTheCart(2);
-            string itemPriceAndName = nav.GetItemPriceAndName();
+            string itemPriceAndName = productCard.ItemPriceAndNameAtTheTopOfTheCard();
             Thread.Sleep(1000);
             topMenu.GoInTheCart();
-            string itemPriceAndNameInTheCart = cart.GetItemPriceandNameInTheCart();
+            string itemPriceAndNameInTheCart = cart.GetItemPriceAndNameInTheCart();
             Assert.AreEqual(itemPriceAndNameInTheCart, itemPriceAndName, "Price or name doesn't match with added item info.");
         }
         [Test]
         public void CheckProductCardVisibility()
         {
             topMenu.WriteInSearchBar("Ibuprom");
-            string itemPriceAndName = nav.GetItemPriceAndName();
+            string itemPriceAndName = nav.GetItemPriceAndName(1);
             productCard.GoInTheProductCard(1);
             topMenu.CheckTopMeniuLayout();
-            string itemPriceAndNameAtTheTopOfTheCard = productCard.itemPriceAndNameAtTheTopOfTheCard();
-            string itemPriceAndNameAtTheBottomOfTheCard = productCard.itemPriceAndNameAtTheBottomOfTheCard();
+            string itemPriceAndNameAtTheTopOfTheCard = productCard.ItemPriceAndNameAtTheTopOfTheCard();
+            string itemPriceAndNameAtTheBottomOfTheCard = productCard.ItemPriceAndNameAtTheBottomOfTheCard();
             Assert.AreEqual(itemPriceAndNameAtTheTopOfTheCard, itemPriceAndName, "Price or name on the top doesn't match with selected item info.");
             Assert.AreEqual(itemPriceAndNameAtTheBottomOfTheCard, itemPriceAndName, "Price or name on the bottom doesn't match with selected item info.");
             productCard.CheckBreadscrumbsCount();
@@ -84,7 +79,7 @@ namespace Eurovaistine.lt
         public void CheckRegistration()
         {
             string emailForRegistration = registration_login.FillRegistrationForm();
-            registration_login.CheckOrAutomaticallyLogInAfterRegistration(emailForRegistration);
+            registration_login.CheckLogInAfterRegistration(emailForRegistration);
         }
 
         [Test]
@@ -92,7 +87,6 @@ namespace Eurovaistine.lt
         {
             registration_login.FillLogInForm();
             registration_login.CheckLogIn();
-            generalMethods.TakeScreanShot();
         }
 
         [TearDown]
@@ -100,7 +94,7 @@ namespace Eurovaistine.lt
         {
             if (TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
             {
-                generalMethods.TakeScreanShot();
+                generalMethods.TakeScreenShot();
             }
             //driver.Quit();
         }

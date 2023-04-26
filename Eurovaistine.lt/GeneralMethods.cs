@@ -3,12 +3,6 @@ using OpenQA.Selenium.Support.Extensions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Eurovaistine.lt
 {
@@ -70,17 +64,17 @@ namespace Eurovaistine.lt
             IReadOnlyCollection <IWebElement> element = wait.Until(x => x.FindElements(By.XPath(xpath)));
             return element;
         }
-        public IWebElement Explisitwait(string xpath)
+        public IWebElement ExplisitWait(string xpath)
         {
             WebDriverWait wait = new WebDriverWait(driver, new TimeSpan(0,0,0,30));
             wait.Until(x => x.FindElement(By.XPath(xpath)).Displayed);
             return driver.FindElement(By.XPath(xpath));
         }
-        public void TakeScreanShot()
+        public void TakeScreenShot()
         {
             Screenshot ss = driver.TakeScreenshot();            
             string screenshot = "screenshot" + DateTime.Now.ToString("yyyy-MM-dd-HH_mm_ss") + ".jpg";
-            ss.SaveAsFile("..\\..\\Screanshots\\" + screenshot);
+            ss.SaveAsFile("..\\..\\Screenshots\\" + screenshot);
 
         }
     }

@@ -12,12 +12,10 @@ namespace Eurovaistine.lt.POM
 {
     internal class ProductsPage
     {
-        IWebDriver driver;
         GeneralMethods generalMethods;
 
         public ProductsPage(IWebDriver driver)
         {
-            this.driver = driver;
             generalMethods = new GeneralMethods(driver);
         }
         public void CheckProductsSortingFromLowestPrice()
@@ -44,27 +42,20 @@ namespace Eurovaistine.lt.POM
         }
 
         //galimybes isrikiuoti pagal abecele puslapyje po atnaujinimo nebeliko.
-        public void CheckProductsSortingByAlphabet()
+        public bool CheckProductsSortingByAlphabet()
         {
             generalMethods.ScrollAndClickElementByXpath("(//select[@id='sort-box'])[2]");
             generalMethods.ScrollAndClickElementByXpath("(//option[@value='title'])[2]");
-            IReadOnlyCollection<IWebElement> productNames = generalMethods.FindAllElementsByXpath("//div[@class='product-card--title']");
 
-            List<char> allproductNames = new List<char>();
-            foreach (IWebElement name in productNames)
+            var productsFirstLetter = generalMethods.FindAllElementsByXpath("//div[@class='product-card--title']").Select(el => el.Text[0]).ToList();
+            for (int i = 0; i < productsFirstLetter.Count - 1; i++)
             {
-                string allNames = name.Text.Substring(0, 1);
-                char firstletter = char.Parse(allNames.ToString());
-
-                allproductNames.Add(firstletter);
-            }
-            for (int i = 0; i < allproductNames.Count - 1; i++)
-            {
-                if (allproductNames[i] > allproductNames[i + 1])
+                if (productsFirstLetter[i] > productsFirstLetter[i + 1])
                 {
-                    Assert.Fail("Products not sorted by alphabet.");
+                    return false;
                 }
             }
+            return true;
         }
 
         public void CheckProductsSortingFromHigestPrice()
