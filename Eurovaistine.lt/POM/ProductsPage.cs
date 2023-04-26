@@ -20,11 +20,12 @@ namespace Eurovaistine.lt.POM
             this.driver = driver;
             generalMethods = new GeneralMethods(driver);
         }
-        public void CheckProductsSortingByPrice()
+        public void CheckProductsSortingFromLowestPrice()
         {
-            generalMethods.ScrollAndClickElementByXpath("(//select[@id='sort-box'])[2]");
-            generalMethods.ScrollAndClickElementByXpath("(//option[@value='price'])[2]");
-            IReadOnlyCollection<IWebElement> prices = generalMethods.FindAllElementsByXpath("//div[@class='product-card--price']");
+            generalMethods.ScrollAndClickElementByID("filter_dropdown_sort");
+            generalMethods.ScrollAndClickElementByID("filter_list_Pigiausios viršuje");
+            IReadOnlyCollection<IWebElement> prices = generalMethods.FindAllElementsByXpath("//div[contains(@class,'productPrice')]");
+
 
             List<double> allPrices = new List<double>();
             foreach (IWebElement el in prices)
@@ -41,6 +42,8 @@ namespace Eurovaistine.lt.POM
                 }
             }
         }
+
+        //galimybes isrikiuoti pagal abecele puslapyje po atnaujinimo nebeliko.
         public void CheckProductsSortingByAlphabet()
         {
             generalMethods.ScrollAndClickElementByXpath("(//select[@id='sort-box'])[2]");
@@ -60,6 +63,30 @@ namespace Eurovaistine.lt.POM
                 if (allproductNames[i] > allproductNames[i + 1])
                 {
                     Assert.Fail("Products not sorted by alphabet.");
+                }
+            }
+        }
+
+        public void CheckProductsSortingFromHigestPrice()
+        {
+            generalMethods.ScrollAndClickElementByID("filter_dropdown_sort");
+            generalMethods.ScrollAndClickElementByID("filter_list_Brangiausios viršuje");
+
+            IReadOnlyCollection<IWebElement> prices = generalMethods.FindAllElementsByXpath("//div[contains(@class,'productPrice')]");
+
+
+            List<double> allPrices = new List<double>();
+            foreach (IWebElement el in prices)
+            {
+                string onePrice = el.Text.Substring(0, el.Text.Length - 2);
+                double otherPrices = double.Parse(onePrice);
+                allPrices.Add(otherPrices);
+            }
+            for (int i = 0; i < allPrices.Count - 1; i++)
+            {
+                if (allPrices[i] < allPrices[i + 1])
+                {
+                    Assert.Fail("Products not sorted from highest price to lowest.");
                 }
             }
         }

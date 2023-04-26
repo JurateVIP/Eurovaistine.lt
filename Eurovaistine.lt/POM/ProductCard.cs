@@ -20,7 +20,7 @@ namespace Eurovaistine.lt.POM
         }
         public void GoInTheProductCard(int itemNumber)
         {
-            generalMethods.ScrollAndClickElementByXpath("(//a[@class='product-card--link'])[" + itemNumber + "]");
+            generalMethods.ScrollAndClickElementByXpath("(//a[@class='productCard'])[" + itemNumber + "]");
         }
         public string itemPriceAndNameAtTheTopOfTheCard()
         {

@@ -30,6 +30,11 @@ namespace Eurovaistine.lt
             IWebElement element = wait.Until(x => x.FindElement(By.XPath(xpath)));
             element.Click();
         }
+        public void ClickElementById(string id)
+        {
+            IWebElement element = wait.Until(x => x.FindElement(By.Id(id)));
+            element.Click();
+        }
         public void ScrollAndClickElementByXpath(string xpath)
         {
             IWebElement element = wait.Until(x => x.FindElement(By.XPath(xpath)));
@@ -75,7 +80,8 @@ namespace Eurovaistine.lt
         {
             Screenshot ss = driver.TakeScreenshot();            
             string screenshot = "screenshot" + DateTime.Now.ToString("yyyy-MM-dd-HH_mm_ss") + ".jpg";
-            ss.SaveAsFile("C:\\Users\\Jurate\\source\\repos\\Eurovaistine.lt\\Eurovaistine.lt\\" + screenshot);
+            ss.SaveAsFile("..\\..\\Screanshots\\" + screenshot);
+
         }
     }
 }

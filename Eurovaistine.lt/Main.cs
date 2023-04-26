@@ -48,9 +48,9 @@ namespace Eurovaistine.lt
             topMenu.CheckTopMeniuLayout();
             nav.NavigateFromMainPage("Vaistai nereceptiniai", "Gripui");
             topMenu.CheckTopMeniuLayout();
-            Thread.Sleep(3000);
             nav.AddItemsToTheCart(2);
-            string itemPriceAndName = nav.GetItemPriceAndName(2);
+            string itemPriceAndName = nav.GetItemPriceAndName();
+            Thread.Sleep(1000);
             topMenu.GoInTheCart();
             string itemPriceAndNameInTheCart = cart.GetItemPriceandNameInTheCart();
             Assert.AreEqual(itemPriceAndNameInTheCart, itemPriceAndName, "Price or name doesn't match with added item info.");
@@ -59,7 +59,7 @@ namespace Eurovaistine.lt
         public void CheckProductCardVisibility()
         {
             topMenu.WriteInSearchBar("Ibuprom");
-            string itemPriceAndName = nav.GetItemPriceAndName(1);
+            string itemPriceAndName = nav.GetItemPriceAndName();
             productCard.GoInTheProductCard(1);
             topMenu.CheckTopMeniuLayout();
             string itemPriceAndNameAtTheTopOfTheCard = productCard.itemPriceAndNameAtTheTopOfTheCard();
@@ -76,8 +76,8 @@ namespace Eurovaistine.lt
         public void CheckProductListSorting()
         {
             nav.NavigateFromMainPage("Vaistai nereceptiniai", "Gripui");
-            productsPage.CheckProductsSortingByPrice();
-            productsPage.CheckProductsSortingByAlphabet();
+            productsPage.CheckProductsSortingFromLowestPrice();
+            productsPage.CheckProductsSortingFromHigestPrice();
         }
 
         [Test]
@@ -92,7 +92,7 @@ namespace Eurovaistine.lt
         {
             registration_login.FillLogInForm();
             registration_login.CheckLogIn();
-            Console.WriteLine();
+            generalMethods.TakeScreanShot();
         }
 
         [TearDown]
@@ -102,7 +102,7 @@ namespace Eurovaistine.lt
             {
                 generalMethods.TakeScreanShot();
             }
-            driver.Quit();
+            //driver.Quit();
         }
     }
 
