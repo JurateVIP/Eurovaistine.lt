@@ -15,6 +15,9 @@ namespace Eurovaistine.lt.POM
 {
     internal class Registration_Login
     {
+        // Šitas kintamasis nenaudojamas
+        // Jeigu yra laikomas ateičiai komentaro reiktų
+        // kitu atveju galima tiesiog ištrinti
         IWebDriver driver;
         GeneralMethods generalMethods;
         DefaultWait<IWebDriver> wait;
@@ -30,6 +33,7 @@ namespace Eurovaistine.lt.POM
         }
         public string emailAndPassword = "TEST202303203@test.lt";
 
+        //GenerateEmailforRegistration -> GenerateEmailForRegistration
         private string GenerateEmailforRegistration()
         {
             Random random = new Random();
@@ -42,6 +46,11 @@ namespace Eurovaistine.lt.POM
         {
             string emailAndPasswordForRegistration = GenerateEmailforRegistration();
             generalMethods.ScrollAndClickElementByID("user-block");
+            // Eilutes gaunasi ilgos priklausomai nuo sutarimu galima
+            // butu karpyti:
+            //generalMethods.EnterTextById(
+            //    "customer_registration_email", 
+            //    emailAndPasswordForRegistration);
             generalMethods.EnterTextById("customer_registration_email", emailAndPasswordForRegistration);
             generalMethods.EnterTextById("customer_registration_user_plainPassword_first", emailAndPasswordForRegistration);
             generalMethods.EnterTextById("customer_registration_user_plainPassword_second", emailAndPasswordForRegistration);
@@ -49,11 +58,16 @@ namespace Eurovaistine.lt.POM
             generalMethods.ClickElementByXpath("(//button[@class= 'btn btn-green'])[1]");
             return emailAndPasswordForRegistration;
         }
+        // Pavadinimas toks keistasi, Tai check or Loging?
         public void CheckOrAutomaticallyLogInAfterRegistration(string emailForRegistration)
         {
+            // Eilutes gaunasi ilgos priklausomai nuo sutarimu galima
+            // butu karpyti
             IWebElement userNameVisability = wait.Until(x => x.FindElement(By.XPath("//span[contains(@class,'headerUserName')]")));
             string userNameAfterLogIn = userNameVisability.Text;
             string userName = emailForRegistration.Split('@')[0];
+            // Čia vieta tam pačiam komentarui kaip ir prieš tai 
+            // apie assertus. Ne klaida.
             Assert.AreEqual(userName, userNameAfterLogIn, "Didn't log in after registration");
         }
         public void FillLogInForm()
@@ -65,9 +79,13 @@ namespace Eurovaistine.lt.POM
         }
         public void CheckLogIn()
         {
+            // Eilutes gaunasi ilgos priklausomai nuo sutarimu galima
+            // butu karpyti
             IWebElement userNameVisability = wait.Until(x => x.FindElement(By.XPath("//span[@class='headerUserName d-none d-lg-block']")));
             string userNameAfterLogIn = userNameVisability.Text;
             string userName = emailAndPassword.Split('@')[0];
+            // Čia vieta tam pačiam komentarui kaip ir prieš tai 
+            // apie assertus. Ne klaida.
             Assert.AreEqual(userName, userNameAfterLogIn, "Log in failed");
         }
     }

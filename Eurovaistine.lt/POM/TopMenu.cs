@@ -11,6 +11,9 @@ namespace Eurovaistine.lt.POM
 {
     internal class TopMenu
     {
+        // Šitas kintamasis nenaudojamas
+        // Jeigu yra laikomas ateičiai komentaro reiktų
+        // kitu atveju galima tiesiog ištrinti
         IWebDriver driver;
         DefaultWait<IWebDriver> wait;
         GeneralMethods generalMethods;
@@ -27,6 +30,8 @@ namespace Eurovaistine.lt.POM
 
         public void CheckTopMeniuLayout()
         {
+            // nelabai supratau? Cia gal errora gaudai?
+            // Is kodo nelabai mato intencija
             IWebElement element = wait.Until(x => x.FindElement(By.XPath("//img[@class='logo']")));
         }
         public void GoInTheCart()

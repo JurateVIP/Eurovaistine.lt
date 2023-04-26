@@ -49,6 +49,10 @@ namespace Eurovaistine.lt
             IWebElement element = wait.Until(x => x.FindElement(By.Id(id)));
             element.SendKeys(text);
         }
+        // šitoje vietoje ne klaida bet jeigu jau turi kelis metodus pagal kažką
+        // visai variantas būtų dar viena abstrakcija deti
+        // plius nebutina saugotis kaip kintamojo ir iskarto
+        // grazinti 89 eilute pavyzdys kaip butu galima pakeisti
         public IWebElement FindElementById(string id)
         {
             IWebElement element = wait.Until(x => x.FindElement(By.Id(id)));
@@ -65,17 +69,27 @@ namespace Eurovaistine.lt
             IReadOnlyCollection <IWebElement> element = wait.Until(x => x.FindElements(By.XPath(xpath)));
             return element;
         }
+        // Explisitwait -> ExplisitWait -> ExplicitWait
         public IWebElement Explisitwait(string xpath)
         {
             WebDriverWait wait = new WebDriverWait(driver, new TimeSpan(0,0,0,30));
             wait.Until(x => x.FindElement(By.XPath(xpath)).Displayed);
             return driver.FindElement(By.XPath(xpath));
         }
+        // Typo: TakeScreanShot -> TakeScreenShot
         public void TakeScreanShot()
         {
             Screenshot ss = driver.TakeScreenshot();            
             string screenshot = "screenshot" + DateTime.Now.ToString("yyyy-MM-dd-HH_mm_ss") + ".jpg";
-            ss.SaveAsFile("C:\\Users\\Jurate\\source\\repos\\Eurovaistine.lt\\Eurovaistine.lt\\" + screenshot);
+            // Absoliutus path'as mano kompiuteryje neveiks.
+            //ss.SaveAsFile("C:\\Users\\Jurate\\source\\repos\\Eurovaistine.lt\\Eurovaistine.lt\\" + screenshot);
+            ss.SaveAsFile(screenshot);
         }
+
+        // Cia prasideda pavyzdys
+        public IWebElement FindElementBy(By by) => wait.Until(x => x.FindElement(by));
+        public IWebElement FindElementById2(string id) => FindElementBy(By.Id(id));
+        public IWebElement FindElementByXPath2(string xPath) => FindElementBy(By.XPath(xPath));
+
     }
 }

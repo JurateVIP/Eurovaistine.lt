@@ -33,6 +33,7 @@ namespace Eurovaistine.lt.POM
         }
         public string GetItemPriceAndName(int itemNumber)
         {
+            // itemprice -> itemPrice
             IWebElement itemprice = generalMethods.FindElementByXpath("(//div[@class='product-card--price'])[" + itemNumber + "]");
             IWebElement itemName = generalMethods.FindElementByXpath("(//div[@class='product-card--title'])[" + itemNumber + "]");
             return itemprice.Text + itemName.Text;
