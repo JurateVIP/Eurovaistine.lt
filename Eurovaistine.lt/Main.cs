@@ -96,7 +96,7 @@ namespace Eurovaistine.lt
             {
                 generalMethods.TakeScreenShot();
             }
-            //driver.Quit();
+            driver.Quit();
         }
     }
 
