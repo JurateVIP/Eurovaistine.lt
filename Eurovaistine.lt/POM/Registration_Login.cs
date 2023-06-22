@@ -35,8 +35,8 @@ namespace Eurovaistine.lt.POM
             generalMethods.EnterTextById("customer_registration_email", emailAndPasswordForRegistration);
             generalMethods.EnterTextById("customer_registration_user_plainPassword_first", emailAndPasswordForRegistration);
             generalMethods.EnterTextById("customer_registration_user_plainPassword_second", emailAndPasswordForRegistration);
-            generalMethods.ScrollAndClickElementByXpath("//input[contains(@id, 'acceptSensitiveData')]");
-            generalMethods.ClickElementByXpath("(//button[@class= 'btn btn-green'])[1]");
+            generalMethods.ScrollAndClickElementByXpath("//input[contains(@id, 'acceptSensitiveData')]");            
+            generalMethods.ScrollAndClickElementByXpath("(//button[@class= 'btn btn-green'])[1]");
             return emailAndPasswordForRegistration;
         }
         public void CheckLogInAfterRegistration(string emailForRegistration)

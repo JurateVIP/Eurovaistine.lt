@@ -73,6 +73,7 @@ namespace Eurovaistine.lt
             nav.NavigateFromMainPage("Vaistai nereceptiniai", "Gripui");
             productsPage.CheckProductsSortingFromLowestPrice();
             productsPage.CheckProductsSortingFromHigestPrice();
+            
         }
 
         [Test]
@@ -92,6 +93,7 @@ namespace Eurovaistine.lt
         [TearDown]
         public static void CloseWindow()
         {
+            generalMethods.TakeScreenShot();
             if (TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
             {
                 generalMethods.TakeScreenShot();
